@@ -10,7 +10,7 @@ Welcome to the Hots&Cots API. This REST API provides access to quality-of-life f
 
 The Hots&Cots API allows authorized users to retrieve, filter, and paginate through anonymized reviews and feedback data collected from service members across installations.
 
-**Base URL:** `https://api.hotsandcots.com/rest/v1`
+**Base URL:** `https://api.hotscots.app/rest/v1`
 
 ## Authentication
 
@@ -28,7 +28,7 @@ Contact the Hots&Cots team to obtain your API credentials.
 ### Basic GET Request
 
 ```bash
-curl -X GET "https://api.hotsandcots.com/rest/v1/reviews" \
+curl -X GET "https://api.hotscots.app/rest/v1/reviews" \
   -H "apikey: YOUR_API_KEY"
 ```
 
@@ -42,12 +42,39 @@ curl -X GET "https://api.hotsandcots.com/rest/v1/reviews" \
 
 **Example:**
 ```bash
-curl -X GET "https://api.hotsandcots.com/rest/v1/hots" \
+curl -X GET "https://api.hotscots.app/rest/v1/hots" \
   -H "apikey: YOUR_API_KEY"
 ```
 
 **Available Fields:**
-- `[HOTS_DATA_FIELDS_PLACEHOLDER]`
+- `review_id` — ID of review
+- `created_at` — Date of review creation
+- `title` — Title of the review
+- `installation` — Installation location
+- `dfac_name` — DFAC name
+- `rating` — Overall rating
+- `feedback` — Detailed feedback description
+- `tags` — Array of tags highlighting key aspects
+- `branch` — Military branch
+- `breakfast_ranking` — Breakfast quality ranking
+- `lunch_ranking` — Lunch quality ranking
+- `dinner_ranking` — Dinner quality ranking
+- `meal_type` — Type of meal
+- `dfac_choices` — Available choices in the DFAC
+- `dfac_healthy` — Are there healthy choices available
+- `dfac_filling` — Are the meals filling
+- `dfac_visual` — Was food visually appealing
+- `dfac_temp` — Was food at proper temperature
+- `dfac_police` — Were you prevented from getting more food
+- `dfac_special` — Was this a special holiday meal
+- `has_shuttle` — Does the DFAC have a shuttle
+- `walking_distance` — Within walking distance
+- `kiosk_level` — How full or empty was the kiosk
+- `inedible_food_issue` — Was the food inedible due to mold or undercooked
+- `resolved` — Is the issue resolved
+- `image_name` — Name of the image
+- `photo_album` — Photo album associated with the review
+- `bldg_number` — Building number
 
 ---
 
@@ -59,12 +86,39 @@ curl -X GET "https://api.hotsandcots.com/rest/v1/hots" \
 
 **Example:**
 ```bash
-curl -X GET "https://api.hotsandcots.com/rest/v1/cots" \
+curl -X GET "https://api.hotscots.app/rest/v1/cots" \
   -H "apikey: YOUR_API_KEY"
 ```
 
 **Available Fields:**
-- `[COTS_DATA_FIELDS_PLACEHOLDER]`
+- `review_id` — ID of review
+- `created_at` — Date of review creation
+- `title` — Title of the review
+- `installation` — Installation location
+- `rating` — Overall rating of review
+- `feedback` — Detailed feedback description
+- `tags` — Array of tags highlighting key aspects
+- `branch` — Military branch
+- `is_housing` — Is it housing related or barracks
+- `room_amenities` — Amenities available in the room
+- `mold_issues` — Presence of mold issues
+- `pest_issues` — Presence of pest issues
+- `working_air_heat` — Is the air conditioning/heating working
+- `working_furniture` — Is the furniture in working condition
+- `accessible_laundry` — Is laundry accessible
+- `private_sleeping_area` — Is there a private sleeping area
+- `lockable_doors` — Are there lockable doors
+- `working_fire_detection` — Is the fire detection system working
+- `exterior_lighting` — Is there exterior lighting
+- `interior_lighting` — Is there interior lighting
+- `safety_features` — Safety features available
+- `dpw_satisfaction_rating` — DPW satisfaction rating
+- `resolved` — Is the issue resolved
+- `image_name` — Name of the image
+- `photo_album` — Photo album associated with the review
+- `bldg_number` — Building number
+
+---
 
 ---
 
@@ -74,18 +128,18 @@ Use `limit` and `offset` parameters to paginate through results.
 
 ```bash
 # Get first 10 records
-curl -X GET "https://api.hotsandcots.com/rest/v1/hots?limit=10&offset=0" \
+curl -X GET "https://api.hotscots.app/rest/v1/hots?limit=10&offset=0" \
   -H "apikey: YOUR_API_KEY"
 
 # Get next 10 records (page 2)
-curl -X GET "https://api.hotsandcots.com/rest/v1/hots?limit=10&offset=10" \
+curl -X GET "https://api.hotscots.app/rest/v1/hots?limit=10&offset=10" \
   -H "apikey: YOUR_API_KEY"
 ```
 
 ### Getting Total Count
 
 ```bash
-curl -X GET "https://api.hotsandcots.com/rest/v1/hots?select=count" \
+curl -X GET "https://api.hotscots.app/rest/v1/hots?select=count" \
   -H "apikey: YOUR_API_KEY" \
   -H "Prefer: count=exact"
 ```
@@ -98,15 +152,15 @@ Filter results by adding query parameters:
 
 ```bash
 # Filter by installation
-curl -X GET "https://api.hotsandcots.com/rest/v1/hots?installation=eq.Fort%20Hood" \
+curl -X GET "https://api.hotscots.app/rest/v1/hots?installation=eq.Fort%20Hood" \
   -H "apikey: YOUR_API_KEY"
 
 # Filter by rating
-curl -X GET "https://api.hotsandcots.com/rest/v1/hots?rating=gte.4" \
+curl -X GET "https://api.hotscots.app/rest/v1/hots?rating=gte.4" \
   -H "apikey: YOUR_API_KEY"
 
 # Combine filters
-curl -X GET "https://api.hotsandcots.com/rest/v1/hots?installation=eq.Fort%20Hood&rating=gte.4" \
+curl -X GET "https://api.hotscots.app/rest/v1/hots?installation=eq.Fort%20Hood&rating=gte.4" \
   -H "apikey: YOUR_API_KEY"
 ```
 
@@ -127,11 +181,11 @@ Sort results by adding the `order` parameter:
 
 ```bash
 # Sort by date (newest first)
-curl -X GET "https://api.hotsandcots.com/rest/v1/hots?order=created_at.desc" \
+curl -X GET "https://api.hotscots.app/rest/v1/hots?order=created_at.desc" \
   -H "apikey: YOUR_API_KEY"
 
 # Sort by rating (highest first)
-curl -X GET "https://api.hotsandcots.com/rest/v1/hots?order=rating.desc" \
+curl -X GET "https://api.hotscots.app/rest/v1/hots?order=rating.desc" \
   -H "apikey: YOUR_API_KEY"
 ```
 
@@ -197,8 +251,8 @@ All data returned by this API is anonymized and OPSEC-scrubbed. Personal identif
 
 For questions, issues, or to request API access, contact the Hots&Cots team:
 
-**Email:** support@hotsandcots.com  
-**Website:** https://www.hotsandcots.com
+**Email:** support@hotscots.app  
+**Website:** https://www.hotscots.app
 
 ---
 
